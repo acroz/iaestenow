@@ -1,6 +1,6 @@
 # IAESTE Now
 
-The IAESTE map is a website facilitating the discovery of people, events and
+IAESTE Now is a website facilitating the discovery of people, events and
 couches in IAESTE on a geographic basis. It is built using modern web
 technologies, specifically:
 
