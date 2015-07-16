@@ -1,0 +1,6 @@
+# Test database files
+*.db
+# Python bytecode files
+*.pyc
+# vim swap files
+.*.swp
