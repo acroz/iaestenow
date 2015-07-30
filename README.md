@@ -19,6 +19,16 @@ sudo pip install Flask SQLAlchemy
 
 Make sure you install with `pip3` if Python 2 is your default version (likely).
 
+## Setup
+
+API keys for services being scraped, in particular Twitter (and more in future)
+must be generated and added to the settings file.
+
+### Twitter
+
+Generate an application key at https://dev.twitter.com/apps/new, and add the
+application key and secret to the settings.json file.
+
 ## Running the Development Server
 
 Run the development server with:

@@ -4,3 +4,5 @@
 *.pyc
 # vim swap files
 .*.swp
+# Settings file
+settings.json
