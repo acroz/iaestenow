@@ -11,10 +11,10 @@ technologies, specifically:
 
 ## Dependencies
 
-Make sure Python 3 is installed, and install Flask and SQLAlchemy through the
-pip python package manager:
+Make sure Python 3 is installed, and install Flask, SQLAlchemy and Twitter
+through the pip python package manager:
 ```sh
-sudo pip install Flask SQLAlchemy
+sudo pip install Flask SQLAlchemy twitter
 ```
 
 Make sure you install with `pip3` if Python 2 is your default version (likely).
