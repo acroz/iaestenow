@@ -21,8 +21,9 @@ Make sure you install with `pip3` if Python 2 is your default version (likely).
 
 ## Setup
 
-API keys for services being scraped, in particular Twitter (and more in future)
-must be generated and added to the settings file.
+API keys for services being scraped, in particular Facebook and Twitter, must
+be generated and added to a settings file called `settings.json`. Copy the
+template `settings-template.json` and fill in as described below.
 
 ### Facebook
 
