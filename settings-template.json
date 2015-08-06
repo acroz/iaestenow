@@ -1,4 +1,8 @@
 {
+    "facebook": {
+        "id": "",
+        "secret": ""
+    },
     "twitter": {
         "key": "",
         "secret": ""

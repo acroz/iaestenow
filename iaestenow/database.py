@@ -22,6 +22,7 @@ class Location(Base):
     address   = Column(String)
     latitude  = Column(Float)
     longitude = Column(Float)
+    facebook_id = Column(Integer)
 
 class EntryType(Base):
     """
@@ -43,6 +44,7 @@ class Entry(Base):
     name = Column(String)
     location_id = Column(Integer, ForeignKey('locations.id'))
     type_id     = Column(String, ForeignKey('entry_types.name'))
+    facebook_id = Column(Integer)
 
     location = relationship('Location', backref=backref('entries', order_by=id))
     type = relationship('EntryType', backref=backref('entries', order_by=id))

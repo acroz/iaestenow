@@ -11,10 +11,10 @@ technologies, specifically:
 
 ## Dependencies
 
-Make sure Python 3 is installed, and install Flask, SQLAlchemy and Twitter
-through the pip python package manager:
+Make sure Python 3 is installed, and install Flask, SQLAlchemy, requests (for
+accessing the Facebook API) and twitter through the pip python package manager:
 ```sh
-sudo pip install Flask SQLAlchemy twitter
+sudo pip install Flask SQLAlchemy requests twitter
 ```
 
 Make sure you install with `pip3` if Python 2 is your default version (likely).
@@ -23,6 +23,11 @@ Make sure you install with `pip3` if Python 2 is your default version (likely).
 
 API keys for services being scraped, in particular Twitter (and more in future)
 must be generated and added to the settings file.
+
+### Facebook
+
+Generate a Facebook app at https://developers.facebook.com/apps/, and add the
+application ID and secret to the settings.json file.
 
 ### Twitter
 
