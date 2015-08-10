@@ -13,6 +13,8 @@ except FileNotFoundError:
 # Load settings file    
 with open('settings.json') as fp:
     settings = json.load(fp)
+
+app.secret_key = settings['secret_key']
     
 # Populate the database
 database.init()

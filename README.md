@@ -11,10 +11,10 @@ technologies, specifically:
 
 ## Dependencies
 
-Make sure Python 3 is installed, and install Flask, SQLAlchemy, requests (for
-accessing the Facebook API) and twitter through the pip python package manager:
+Make sure Python 3 is installed, and install some dependencies through the pip
+python package manager:
 ```sh
-sudo pip install Flask SQLAlchemy requests twitter
+sudo pip install Flask SQLAlchemy Flask-Login Flask-WTF requests twitter
 ```
 
 Make sure you install with `pip3` if Python 2 is your default version (likely).

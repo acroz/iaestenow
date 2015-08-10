@@ -5,11 +5,24 @@ Define the database interface with SQLAlchemy.
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
+from flask.ext.login import UserMixin
 
 # Using local file database for the moment
 engine = create_engine('sqlite:///test.db', echo=True)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
+
+class User(Base, UserMixin):
+    """
+    Store users.
+    """
+
+    __tablename__ = 'users'
+
+    id       = Column(Integer, primary_key=True)
+    email    = Column(String)
+    password = Column(String)
+    name     = Column(String)
 
 class Location(Base):
     """

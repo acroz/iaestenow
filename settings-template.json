@@ -1,4 +1,5 @@
 {
+    "secret_key": "",
     "facebook": {
         "id": "",
         "secret": ""
