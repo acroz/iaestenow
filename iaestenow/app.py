@@ -1,96 +1,18 @@
-"""
-Create a flask app serving the webpage and JSON APIs.
-"""
-
+import os
 import flask
-from iaestenow import geocode as geo
-from iaestenow import entries as entr
-from iaestenow.login import loginmanager, register_user
-from flask.ext import login as fl
-from iaestenow import forms
-from iaestenow.database import Session, User
-from sqlalchemy.orm.exc import NoResultFound
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager
 
 # Create the flask app
 app = flask.Flask(__name__)
+
+# Add the database
+dirname = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+dbfile = os.path.join(dirname, 'test.db')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbfile
+db = SQLAlchemy(app)
+
+# Add the login manager
+loginmanager = LoginManager()
 loginmanager.init_app(app)
-
-@app.route('/')
-def index():
-    """Serve the main html page"""
-    return flask.render_template('map.html')
-
-@app.route('/geocode')
-def geocode():
-    """Provide a cached geocode service"""
-    address = flask.request.args.get('address', '', type=str)
-    data = geo.geocode_dict(address)
-    return flask.jsonify(**data)
-
-@app.route('/entries')
-def entries():
-    """Provide a list of map entries"""
-    data = entr.entries_dict()
-    return flask.jsonify(response=data)
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = forms.RegistrationForm(flask.request.form)
-    if flask.request.method == 'POST' and form.validate():
-        register_user(form.email.data, form.password.data, form.name.data)
-        flask.flash('Registration successful.')
-    return flask.render_template('register.html', form=form)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = forms.LoginForm(flask.request.form)
-
-    if flask.request.method == 'POST' and form.validate():
-        session = Session()
-        query = session.query(User).filter_by(email=form.email.data)
-
-        try:
-            fl.login_user(query.one())
-        except NoResultFound:
-            flask.flash('No user account with those credentials found.')
-        else:
-            flask.flash('Logged in successfully.')
-
-            next = flask.request.args.get('next')
-            #if not next_is_valid(next):
-            #    return flask.abort(400)
-
-            return flask.redirect(next or flask.url_for('index'))
-
-    return flask.render_template('login.html', form=form)
-
-@app.route('/logout')
-@fl.login_required
-def logout():
-    fl.logout_user()
-    flask.flash('Logged out.')
-    return flask.redirect(flask.url_for('index'))
-
-@app.route('/profile/', methods=['GET', 'POST'])
-@fl.login_required
-def profile_edit():
-    user = fl.current_user
-    form = forms.ProfileForm(flask.request.form, user)
-    if flask.request.method == 'POST' and form.validate():
-        session = Session()
-        user.name = form.name.data
-        user.password = form.password.name
-        session.add(user)
-        session.commit()
-        flask.flash('Profile updated.')
-    return flask.render_template('profile-edit.html', form=form)
-
-@app.route('/profile/<int:user_id>')
-def profile(user_id):
-    session = Session()
-    query = session.query(User).filter_by(id=int(user_id))
-    try:
-        user = query.one()
-    except NoResultFound:
-        flask.abort(404)
-    return flask.render_template('profile.html', user=user)

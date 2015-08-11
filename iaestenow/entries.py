@@ -2,15 +2,13 @@
 Query the database and provide a list of map entries.
 """
 
-from iaestenow.database import Session, Entry
+from iaestenow.models import Entry
 
 def entries():
     """
     Get entries from the database.
     """
-    session = Session()
-    query = session.query(Entry)
-    return query.all()
+    return Entry.query.all()
 
 def entries_dict():
     """
@@ -20,7 +18,7 @@ def entries_dict():
     for entry in entries():
         data.append({
                 'name': entry.name,
-                'type': entry.type.name,
+                'type': entry.type,
                 'latitude': entry.location.latitude,
                 'longitude': entry.location.longitude
             })

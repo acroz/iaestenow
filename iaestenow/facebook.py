@@ -1,6 +1,6 @@
 
 import requests
-from iaestenow import database
+from iaestenow.models import db, Entry, Location
 
 ACCESS_TOKEN = None
 
@@ -39,15 +39,11 @@ def recent_iaeste():
 
 def populate():
 
-    session = database.Session()
-    
-    event_type = session.query(database.EntryType).filter_by(name='event').one()
-
     for event in recent_iaeste()['data']:
 
         # See if entry exists
         event_id = int(event['id'])
-        query = session.query(database.Entry).filter_by(facebook_id=event_id)
+        query = Entry.query.filter_by(facebook_id=event_id)
         if query.count() > 0:
             # Event already exists, don't need to do anythinf
             continue
@@ -64,7 +60,7 @@ def populate():
             
             # See if the location exists
             loc_id = int(event['place']['id'])
-            query = session.query(database.Location).filter_by(facebook_id=loc_id)
+            query = Location.query.filter_by(facebook_id=loc_id)
             if query.count() > 0:
                 # Use existing location
                 loc = query.one()
@@ -80,17 +76,17 @@ def populate():
                 address = ', '.join(address)
                 
                 # Generate new location
-                loc = database.Location(address=address,
-                                        latitude=fb_location['latitude'],
-                                        longitude=fb_location['longitude'],
-                                        facebook_id=loc_id)
-                session.add(loc)
+                loc = Location(address=address,
+                               latitude=fb_location['latitude'],
+                               longitude=fb_location['longitude'],
+                               facebook_id=loc_id)
+                db.session.add(loc)
 
-            entry = database.Entry(name=event['name'],
-                                   location=loc,
-                                   type=event_type)
-        session.add(entry)
-    session.commit()
+            entry = Entry(name=event['name'],
+                          location=loc,
+                          type='event')
+        db.session.add(entry)
+    db.session.commit()
 
 if __name__ == '__main__':
 

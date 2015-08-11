@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import os
 import json
-from iaestenow import app, database, facebook
+from iaestenow.views import app
 
 # Load settings file    
 with open('settings.json') as fp:
