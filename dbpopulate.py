@@ -28,7 +28,8 @@ def populate():
     db.session.add_all(entries)
     db.session.commit()
 
-    users = [User(name='Andrew Crozier', email='wacrozier@gmail.com', password='password'),
+    users = [User(name='Andrew Crozier', email='wacrozier@gmail.com',
+                  password='password', location=locs[1]),
              User(name='Pim Sauter', email='pim.sauter@gmail.com', password='password')]
     db.session.add_all(users)
 

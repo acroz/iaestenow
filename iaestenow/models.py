@@ -21,6 +21,9 @@ class User(db.Model, UserMixin):
     email    = db.Column(db.String)
     password = db.Column(db.String)
     name     = db.Column(db.String)
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+
+    location = db.relationship('Location', backref=db.backref('users', order_by=id))
 
 class Location(db.Model):
     """
@@ -34,6 +37,9 @@ class Location(db.Model):
     latitude  = db.Column(db.Float)
     longitude = db.Column(db.Float)
     facebook_id = db.Column(db.Integer)
+
+    def __str__(self):
+        return self.address
 
 class Entry(db.Model):
     """

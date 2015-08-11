@@ -89,7 +89,8 @@ def profile_edit():
     form = forms.ProfileForm(flask.request.form, user)
     if flask.request.method == 'POST' and form.validate():
         user.name = form.name.data
-        user.password = form.password.name
+        user.password = form.password.data
+        user.location = geo.geocode(form.location.data)
         db.session.add(user)
         db.session.commit()
         flask.flash('Profile updated.')

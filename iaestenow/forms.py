@@ -14,3 +14,4 @@ class LoginForm(Form):
 class ProfileForm(Form):
     name     = StringField('Full Name', [validators.InputRequired()])
     password = PasswordField('Password', [validators.Length(min=6)])
+    location = StringField('Location', [validators.InputRequired()])
