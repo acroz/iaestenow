@@ -5,7 +5,7 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <form method="POST" action="{{ url_for('register') }}">
+    <form method="POST" action="{{ url_for('profile_edit') }}">
       {{ form.hidden_tag() }}
       {{ form.name.label }} {{ form.name(size=20) }}
       {{ form.password.label }} {{ form.password(size=20) }}

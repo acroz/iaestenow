@@ -64,12 +64,25 @@ def login():
 
     return flask.render_template('login.html', form=form)
 
-@app.route('/profile')
+@app.route('/logout')
+@fl.login_required
+def logout():
+    fl.logout_user()
+    flask.flash('Logged out.')
+    return flask.redirect(flask.url_for('index'))
+
+@app.route('/profile/', methods=['GET', 'POST'])
 @fl.login_required
 def profile_edit():
-    form = forms.ProfileForm(flask.request.form, fl.current_user)
-    #if flask.request.method == 'POST' and form.validate():
-        
+    user = fl.current_user
+    form = forms.ProfileForm(flask.request.form, user)
+    if flask.request.method == 'POST' and form.validate():
+        session = Session()
+        user.name = form.name.data
+        user.password = form.password.name
+        session.add(user)
+        session.commit()
+        flask.flash('Profile updated.')
     return flask.render_template('profile-edit.html', form=form)
 
 @app.route('/profile/<int:user_id>')
