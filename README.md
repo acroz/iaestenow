@@ -14,7 +14,7 @@ technologies, specifically:
 Make sure Python 3 is installed, and install some dependencies through the pip
 python package manager:
 ```sh
-sudo pip install Flask SQLAlchemy Flask-Login Flask-WTF requests twitter
+sudo pip install Flask Flask-SQLAlchemy Flask-Login Flask-WTF requests twitter
 ```
 
 Make sure you install with `pip3` if Python 2 is your default version (likely).
@@ -24,6 +24,17 @@ Make sure you install with `pip3` if Python 2 is your default version (likely).
 API keys for services being scraped, in particular Facebook and Twitter, must
 be generated and added to a settings file called `settings.json`. Copy the
 template `settings-template.json` and fill in as described below.
+
+### Application Secret
+
+Generate a long, random string, such as with the command:
+
+```sh
+python -c "import random; import string; \
+print(''.join([random.choice(string.ascii_letters + string.digits) for i in range(60)]))"
+```
+
+and save it to the `secret_key` entry in `settings.json`.
 
 ### Facebook
 
