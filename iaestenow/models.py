@@ -10,6 +10,11 @@ ENTRY_TYPES = ['event',
                'reception weekend',
                'twitter']
 
+HOSTING_STATUSES = [('no',    'No'),
+                    ('maybe', 'Maybe'),
+                    ('yes',   'Yes')]
+HOSTING_STATUS_KEYS = [p[0] for p in HOSTING_STATUSES]
+
 class User(db.Model, UserMixin):
     """
     Store users.
@@ -22,6 +27,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String)
     name     = db.Column(db.String)
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    hosting  = db.Column(db.Enum(*HOSTING_STATUS_KEYS), default='no')
 
     location = db.relationship('Location', backref=db.backref('users', order_by=id))
 

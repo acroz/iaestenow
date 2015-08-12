@@ -11,7 +11,9 @@ def entries():
     return Entry.query.all()
 
 def user_locations():
-    return User.query.filter(User.location != None).all()
+    return User.query \
+                .filter(User.location != None) \
+                .filter(User.hosting != 'no').all()
 
 def entries_dict():
     """
@@ -32,5 +34,4 @@ def entries_dict():
                 'latitude': user.location.latitude,
                 'longitude': user.location.longitude
             })
-    print(data)
     return data

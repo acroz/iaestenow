@@ -91,6 +91,7 @@ def profile_edit():
         user.name = form.name.data
         user.password = form.password.data
         user.location = geo.geocode(form.location.data)
+        user.hosting  = form.hosting.data
         db.session.add(user)
         db.session.commit()
         flask.flash('Profile updated.')
