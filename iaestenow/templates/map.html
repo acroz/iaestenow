@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>IAESTE Map</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
-    <script type=text/javascript>
-      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="{{ url_for('static', filename='jquery-2.1.4.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='maps.js') }}"></script>
-  </head>
-  <body>
-    <div id="map-canvas"></div>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Map{% endblock %}
+{% block head %}
+  {{ super() }}
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <style>
+    html, body, #map-canvas {
+      height: 100%;
+      margin: 0px;
+      padding: 0px
+    }
+    /* Remove gap below navbar */
+    nav.navbar {
+      margin-bottom: 0;
+    }
+  </style>
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+  <script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div id="map-canvas"></div>
+{% endblock %}
