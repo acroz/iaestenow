@@ -4,10 +4,16 @@
   {{ super() }}
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <style>
-    html, body, #map-canvas {
+    html, body {
       height: 100%;
       margin: 0px;
       padding: 0px
+    }
+    #map-canvas {
+      /* Header is usually 60px */
+      height: calc(100% - 60px);
+      margin: 0px;
+      padding: 0px;
     }
     /* Remove gap below navbar */
     nav.navbar {
